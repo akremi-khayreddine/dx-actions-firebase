@@ -31,9 +31,15 @@ run = async () => {
         const firebaseJsonContent = transforme(firebaseJsonTemplate.toString(), config);
         writeFileSync("firebase.json", firebaseJsonContent);
 
+        core.startGroup("Firebase deploy");
         const firebaseCliPath = "node_modules/firebase-tools/lib/bin/firebase.js";
         const cmd = `node ${firebaseCliPath} deploy --only hosting:${firebase_target} --token ${firebase_token} -m "${app_version}"`;
-        await exec.exec(cmd);
+        exec.exec(cmd).then((result) => {
+            console.log(result);
+        }).catch((error) => {
+            console.log(error);
+        });
+        core.endGroup();
     } catch (error) {
 
     }
