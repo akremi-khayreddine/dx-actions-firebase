@@ -3,42 +3,38 @@ const core = require('@actions/core');
 const { join } = require("path");
 const { writeFileSync, readFileSync } = require("fs");
 
-run = async () => {
-    try {
-        const firebase_token = process.env.FIREBASE_TOKEN;
+run = () => {
+    const firebase_token = process.env.FIREBASE_TOKEN;
 
-        const firebase_project = core.getInput("firebase_project");
-        const firebase_target = core.getInput("firebase_target");
-        const firebase_hosting = core.getInput("firebase_hosting");
-        const firebase_predeploy = core.getInput("firebase_predeploy");
+    const firebase_project = core.getInput("firebase_project");
+    const firebase_target = core.getInput("firebase_target");
+    const firebase_hosting = core.getInput("firebase_hosting");
+    const firebase_predeploy = core.getInput("firebase_predeploy");
 
-        const app_dist = core.getInput("app_dist");
-        const app_version = core.getInput("app_version");
+    const app_dist = core.getInput("app_dist");
+    const app_version = core.getInput("app_version") ? core.getInput("app_version") : "0.0.1";
 
-        const config = {
-            firebase_project,
-            firebase_target,
-            firebase_hosting,
-            app_dist,
-            firebase_predeploy
-        };
+    const config = {
+        firebase_project,
+        firebase_target,
+        firebase_hosting,
+        app_dist,
+        firebase_predeploy
+    };
 
-        const firebasercTemplate = readFileSync("firebaserc.template");
-        const firebasercContent = transforme(firebasercTemplate.toString(), config);
-        writeFileSync(".firebaserc", firebasercContent);
+    const firebasercTemplate = readFileSync("firebaserc.template");
+    const firebasercContent = transforme(firebasercTemplate.toString(), config);
+    writeFileSync(".firebaserc", firebasercContent);
 
-        const firebaseJsonTemplate = readFileSync("firebase.template");
-        const firebaseJsonContent = transforme(firebaseJsonTemplate.toString(), config);
-        writeFileSync("firebase.json", firebaseJsonContent);
+    const firebaseJsonTemplate = readFileSync("firebase.template");
+    const firebaseJsonContent = transforme(firebaseJsonTemplate.toString(), config);
+    writeFileSync("firebase.json", firebaseJsonContent);
 
-        core.startGroup("Firebase deploy");
-        const firebaseCliPath = "node_modules/firebase-tools/lib/bin/firebase.js";
-        const cmd = `node ${firebaseCliPath} deploy --only hosting:${firebase_target} --token ${firebase_token} -m "${app_version}"`;
-        await exec.exec(cmd);
-        core.endGroup();
-    } catch (error) {
-        core.setFailed(error);
-    }
+    core.startGroup("Firebase deploy");
+    const firebaseCliPath = "node_modules/firebase-tools/lib/bin/firebase.js";
+    const cmd = `node ${firebaseCliPath} deploy --only hosting:${firebase_target} --token ${firebase_token} -m ${app_version}`;
+    exec.exec(cmd);
+    // core.endGroup();
 }
 
 transforme = (item, configurations) => {

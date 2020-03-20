@@ -1,12 +1,12 @@
 {     
   "projects": {  
-    "default": ""
+    "default": "elocatus-dev"
   },
   "targets": {
-    "": {
+    "elocatus-dev": {
       "hosting": {
-        "": [
-          ""
+        "dx-ui": [
+          "dx-ui-dev"
         ]
       }
     }
