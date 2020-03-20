@@ -21,13 +21,13 @@ run = () => {
         firebase_predeploy
     };
 
-    const firebasercTemplate = readFileSync("firebaserc.template");
-    const firebasercContent = transforme(firebasercTemplate.toString(), config);
-    writeFileSync(".firebaserc", firebasercContent);
+    //const firebasercTemplate = readFileSync("firebaserc.template");
+    //const firebasercContent = transforme(firebasercTemplate.toString(), config);
+    //writeFileSync(".firebaserc", firebasercContent);
 
-    const firebaseJsonTemplate = readFileSync("firebase.template");
-    const firebaseJsonContent = transforme(firebaseJsonTemplate.toString(), config);
-    writeFileSync("firebase.json", firebaseJsonContent);
+    //const firebaseJsonTemplate = readFileSync("firebase.template");
+    //const firebaseJsonContent = transforme(firebaseJsonTemplate.toString(), config);
+    //writeFileSync("firebase.json", firebaseJsonContent);
 
     core.startGroup("Firebase deploy");
     const firebaseCliPath = "node_modules/firebase-tools/lib/bin/firebase.js";
