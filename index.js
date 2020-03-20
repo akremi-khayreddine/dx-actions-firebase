@@ -1,6 +1,9 @@
 const exec = require('@actions/exec');
 const core = require('@actions/core');
-const { writeFileSync, readFileSync } = require("fs");
+const { writeFileSync } = require("fs");
+
+const firebaseJsonTemplate = require("./firebase-template.json");
+const firebasercTemplate = require("./firebaserc-template.json");
 
 run = () => {
     const firebase_token = process.env.FIREBASE_TOKEN;
@@ -21,12 +24,10 @@ run = () => {
         firebase_predeploy
     };
 
-    const firebasercTemplate = readFileSync(".firebaserc-template");
-    const firebasercContent = transforme(firebasercTemplate.toString(), config);
+    const firebasercContent = transforme(JSON.stringify(firebasercTemplate), config);
     writeFileSync(".firebaserc", firebasercContent);
 
-    const firebaseJsonTemplate = readFileSync("firebase-template.json");
-    const firebaseJsonContent = transforme(firebaseJsonTemplate.toString(), config);
+    const firebaseJsonContent = transforme(JSON.stringify(firebaseJsonTemplate), config);
     writeFileSync("firebase.json", firebaseJsonContent);
 
     const cmd = `node node_modules/firebase-tools/lib/bin/firebase.js deploy --only hosting:${firebase_target} --token ${firebase_token} -m "${app_version}"`;
