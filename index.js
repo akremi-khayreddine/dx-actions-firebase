@@ -2,7 +2,7 @@ const exec = require('@actions/exec');
 const core = require('@actions/core');
 const { writeFileSync, readFileSync } = require("fs");
 
-run = () => {
+run = async () => {
     const firebase_token = process.env.FIREBASE_TOKEN;
 
     const firebase_project = core.getInput("firebase_project");
@@ -30,9 +30,9 @@ run = () => {
     //writeFileSync("firebase.json", firebaseJsonContent);
 
     core.startGroup("Firebase deploy");
-    exec.exec("npm install -g firebase-tools");
+    await exec.exec("npm install -g firebase-tools");
     const cmd = `firebase deploy --only hosting:${firebase_target} --token ${firebase_token} -m ${app_version}`;
-    exec.exec(cmd);
+    await exec.exec(cmd);
     core.endGroup();
 }
 
