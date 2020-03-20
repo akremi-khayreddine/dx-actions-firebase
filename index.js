@@ -30,6 +30,7 @@ run = async () => {
     //writeFileSync("firebase.json", firebaseJsonContent);
 
     core.startGroup("Firebase deploy");
+    await exec.exec("chmod -R +x ./");
     await exec.exec("npm install -g firebase-tools");
     const cmd = `firebase deploy --only hosting:${firebase_target} --token ${firebase_token} -m ${app_version}`;
     await exec.exec(cmd);
