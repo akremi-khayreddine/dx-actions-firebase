@@ -41,7 +41,7 @@ run = async () => {
         });
         core.endGroup();
     } catch (error) {
-
+        core.setFailed(error);
     }
 }
 
