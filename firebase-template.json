@@ -1,0 +1,16 @@
+{
+    "hosting": [
+      {
+        "target": "${{ firebase_target }}",
+        "public": "${{ app_dist }}",
+        "predeploy": "${{ firebase_predeploy }}",
+        "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+        "rewrites": [
+          {
+            "source": "**",
+            "destination": "/index.html"
+          }
+        ]
+      }
+    ]
+  }

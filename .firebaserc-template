@@ -1,0 +1,14 @@
+{     
+  "projects": {  
+    "default": "${{ firebase_project }}"
+  },
+  "targets": {
+    "${{ firebase_project }}": {
+      "hosting": {
+        "${{ firebase_target }}": [
+          "${{ firebase_hosting }}"
+        ]
+      }
+    }
+  }
+}
