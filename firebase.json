@@ -1,8 +1,8 @@
 {
     "hosting": [
       {
-        "target": "dx-ui",
-        "public": "dist/dx-ui-app",
+        "target": "",
+        "public": "",
         "predeploy": "",
         "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
         "rewrites": [

@@ -1,6 +1,5 @@
 const exec = require('@actions/exec');
 const core = require('@actions/core');
-const { join } = require("path");
 const { writeFileSync, readFileSync } = require("fs");
 
 run = () => {
@@ -33,8 +32,8 @@ run = () => {
     core.startGroup("Firebase deploy");
     const firebaseCliPath = "node_modules/firebase-tools/lib/bin/firebase.js";
     const cmd = `node ${firebaseCliPath} deploy --only hosting:${firebase_target} --token ${firebase_token} -m ${app_version}`;
-    exec.exec(cmd);
-    // core.endGroup();
+    exec.exec(cmd, undefined, { cwd: "./" });
+    core.endGroup();
 }
 
 transforme = (item, configurations) => {
