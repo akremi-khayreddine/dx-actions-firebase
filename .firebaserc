@@ -1,1 +1,14 @@
-{"projects":{"default":""},"targets":{"":{"hosting":{"":[""]}}}}
+{     
+  "projects": {  
+    "default": ""
+  },
+  "targets": {
+    "": {
+      "hosting": {
+        "": [
+          ""
+        ]
+      }
+    }
+  }
+}
