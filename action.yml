@@ -1,0 +1,9 @@
+name: 'Dx actions firebase'
+description: 'Dx action deploy to firebase'
+inputs:
+  firebase_project:
+    description: ''
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'
