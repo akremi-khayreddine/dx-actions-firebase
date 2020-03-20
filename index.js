@@ -31,6 +31,7 @@ run = () => {
 
     core.startGroup("Firebase deploy");
     const firebaseCliPath = "node_modules/firebase-tools/lib/bin/firebase.js";
+    exec.exec("ls");
     const cmd = `node ${firebaseCliPath} deploy --only hosting:${firebase_target} --token ${firebase_token} -m ${app_version}`;
     exec.exec(cmd, undefined, { cwd: "./" });
     core.endGroup();
