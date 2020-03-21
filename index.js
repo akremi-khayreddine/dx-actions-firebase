@@ -32,7 +32,7 @@ run = async () => {
     }).then(result => {
         console.log(result);
     }).catch(error => {
-        console.log(error);
+        console.log(error.message);
     });
 
     //const firebasercTemplate = readFileSync("firebaserc.template");
