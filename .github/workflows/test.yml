@@ -22,7 +22,7 @@ jobs:
     - name: Test
       uses: ./
       env:
-        firebase_token: 1//03W8MhNPLrnvWCgYIARAAGAMSNwF-L9IrtMsPyYYAlKOBIrXnrI-AQvAsNm8t0pKMqDDXQLwCiWnOVnWutsaVDT6-CAV1YDQvsrM
+        FIREBASE_TOKEN: 1//03W8MhNPLrnvWCgYIARAAGAMSNwF-L9IrtMsPyYYAlKOBIrXnrI-AQvAsNm8t0pKMqDDXQLwCiWnOVnWutsaVDT6-CAV1YDQvsrM
       with:
         firebase_project: elocatus-dev
         firebase_target: dx-ui
