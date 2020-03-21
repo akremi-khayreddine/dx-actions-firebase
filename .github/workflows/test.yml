@@ -22,8 +22,7 @@ jobs:
     - name: Test
       uses: ./
       env:
-        GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
-        GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       with:
         firebase_project: elocatus-dev
         firebase_target: dx-ui

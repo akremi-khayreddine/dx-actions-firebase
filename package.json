@@ -11,9 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "@actions/core": "^1.2.3",
-    "@actions/exec": "^1.0.3",
-    "axios": "^0.19.2",
-    "firebase-tools": "^7.15.1",
-    "googleapis": "^48.0.0"
+    "firebase-tools": "^7.15.1"
   }
 }
