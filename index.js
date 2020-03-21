@@ -31,7 +31,9 @@ run = async () => {
         }
     }).then(result => {
         console.log(result);
-    })
+    }).catch(error => {
+        console.log(error);
+    });
 
     //const firebasercTemplate = readFileSync("firebaserc.template");
     //const firebasercContent = transforme(firebasercTemplate.toString(), config);
