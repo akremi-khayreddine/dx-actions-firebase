@@ -22,7 +22,7 @@ run = async () => {
         firebase_predeploy
     };
 
-    post(`https://firebasehosting.googleapis.com/v1beta1/sites/${firebase_target}/versions`, {
+    post(`https://firebasehosting.googleapis.com/v1beta1/sites/${firebase_hosting}/versions`, {
     }, {
         headers: {
             'Authorization': `Bearer ${firebase_token}`,

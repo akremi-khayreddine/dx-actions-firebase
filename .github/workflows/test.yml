@@ -26,6 +26,6 @@ jobs:
       with:
         firebase_project: elocatus-dev
         firebase_target: dx-ui
-        firebase_hosting: dx-ui-dev
+        firebase_hosting: dl-ui-dev
         firebase_predeploy: false
 
