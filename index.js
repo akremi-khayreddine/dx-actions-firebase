@@ -22,19 +22,6 @@ run = async () => {
         firebase_predeploy
     };
 
-    post(`https://firebasehosting.googleapis.com/v1beta1/sites/${firebase_hosting}/versions`, {
-    }, {
-        headers: {
-            'Authorization': `Bearer ${firebase_token}`,
-            'Content-Type': 'application/json',
-            'Content-Length': '134'
-        }
-    }).then(result => {
-        console.log(result);
-    }).catch(error => {
-        console.log(error.message);
-    });
-
     //const firebasercTemplate = readFileSync("firebaserc.template");
     //const firebasercContent = transforme(firebasercTemplate.toString(), config);
     //writeFileSync(".firebaserc", firebasercContent);
@@ -44,6 +31,18 @@ run = async () => {
     //writeFileSync("firebase.json", firebaseJsonContent);
 
     core.startGroup("Firebase deploy");
+    post(`https://firebasehosting.googleapis.com/v1beta1/sites/dl-ui-dev/versions`, {
+    }, {
+        headers: {
+            'authorization': `Bearer ${firebase_token}`,
+            'Content-Type': 'application/json',
+            'Content-Length': '134'
+        }
+    }).then(result => {
+        console.log(result);
+    }).catch(error => {
+        console.log(error.message);
+    });
     core.endGroup();
 }
 
