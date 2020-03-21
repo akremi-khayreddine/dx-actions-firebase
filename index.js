@@ -1,5 +1,6 @@
 const exec = require('@actions/exec');
 const core = require('@actions/core');
+const { post } = require("axios").default;
 const { writeFileSync, readFileSync } = require("fs");
 
 run = async () => {
@@ -21,6 +22,17 @@ run = async () => {
         firebase_predeploy
     };
 
+    post(`https://firebasehosting.googleapis.com/v1beta1/sites/${firebase_target}/versions`, {
+    }, {
+        headers: {
+            'Authorization': `Bearer ${firebase_token}`,
+            'Content-Type': 'application/json',
+            'Content-Length': '134'
+        }
+    }).then(result => {
+        console.log(result);
+    })
+
     //const firebasercTemplate = readFileSync("firebaserc.template");
     //const firebasercContent = transforme(firebasercTemplate.toString(), config);
     //writeFileSync(".firebaserc", firebasercContent);
@@ -30,10 +42,6 @@ run = async () => {
     //writeFileSync("firebase.json", firebaseJsonContent);
 
     core.startGroup("Firebase deploy");
-    await exec.exec("chmod -R +x ./");
-    await exec.exec("npm install -g firebase-tools");
-    const cmd = `firebase deploy --only hosting:${firebase_target} --token ${firebase_token} -m ${app_version}`;
-    await exec.exec(cmd);
     core.endGroup();
 }
 
