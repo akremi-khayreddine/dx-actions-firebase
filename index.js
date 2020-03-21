@@ -2,9 +2,29 @@ const exec = require('@actions/exec');
 const core = require('@actions/core');
 const { post } = require("axios").default;
 const { writeFileSync, readFileSync } = require("fs");
+const { google } = require('googleapis');
+
+function getAccessToken(private_key, client_email) {
+    return new Promise(function (resolve, reject) {
+        var jwtClient = new google.auth.JWT(
+            client_email,
+            null,
+            private_key,
+            ["https://www.googleapis.com/auth/firebase.hosting", "https://www.googleapis.com/auth/cloud-platform"],
+            null
+        );
+        jwtClient.authorize(function (err, tokens) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(tokens.access_token);
+        });
+    });
+}
 
 run = async () => {
-    const firebase_token = process.env.FIREBASE_TOKEN;
+    const firebase_token = "1//03W8MhNPLrnvWCgYIARAAGAMSNwF-L9IrtMsPyYYAlKOBIrXnrI-AQvAsNm8t0pKMqDDXQLwCiWnOVnWutsaVDT6-CAV1YDQvsrM";
 
     const firebase_project = core.getInput("firebase_project");
     const firebase_target = core.getInput("firebase_target");
@@ -31,17 +51,19 @@ run = async () => {
     //writeFileSync("firebase.json", firebaseJsonContent);
 
     core.startGroup("Firebase deploy");
-    post(`https://firebasehosting.googleapis.com/v1beta1/sites/dl-ui-dev/versions`, {
-    }, {
-        headers: {
-            'authorization': `Bearer ${firebase_token}`,
-            'Content-Type': 'application/json',
-            'Content-Length': '134'
-        }
-    }).then(result => {
-        console.log(result);
-    }).catch(error => {
-        console.log(error.message);
+    await getAccessToken(process.env.GOOGLE_PRIVATE_KEY, process.env.GOOGLE_CLIENT_EMAIL).then(token => {
+        return post(`https://firebasehosting.googleapis.com/v1beta1/sites/dl-ui-dev/versions`, {
+        }, {
+            headers: {
+                'authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Content-Length': '134'
+            }
+        }).then(result => {
+            console.log(result);
+        }).catch(error => {
+            console.log(error.message);
+        });
     });
     core.endGroup();
 }
